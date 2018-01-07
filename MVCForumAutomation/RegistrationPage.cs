@@ -46,7 +46,8 @@ namespace MVCForumAutomation
 
         public void Register()
         {
-            throw new System.NotImplementedException();
+            var button = _webDriver.FindElement(By.CssSelector("form button"));
+            button.Click();
         }
 
         private void FillInputElement(string id, string value)
