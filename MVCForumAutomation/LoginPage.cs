@@ -2,30 +2,35 @@ using OpenQA.Selenium;
 
 namespace MVCForumAutomation
 {
-    internal class LoginPage
+    internal class LoginPage : FormPage
     {
-        private readonly IWebDriver _webDriver;
-
-        public LoggedInPage(IWebDriver webDriver)
+        public LoginPage(IWebDriver webDriver) 
+            : base(webDriver)
         {
-            _webDriver = webDriver;
         }
 
         public string Username
         {
             get { throw new System.NotImplementedException(); }
-            set { throw new System.NotImplementedException(); }
+            set
+            {
+                FillInputElement("UserName", value);
+            }
         }
 
         public string Password
         {
             get { throw new System.NotImplementedException(); }
-            set { throw new System.NotImplementedException(); }
+            set
+            {
+                FillInputElement("Password", value);
+            }
         }
 
         public void LogOn()
         {
-            throw new System.NotImplementedException();
+            var submitButton = WebDriver.FindElement(By.CssSelector(".form-login button"));
+            submitButton.Click();
         }
     }
 }

@@ -2,13 +2,11 @@ using OpenQA.Selenium;
 
 namespace MVCForumAutomation
 {
-    internal class RegistrationPage
+    internal class RegistrationPage : FormPage
     {
-        private readonly IWebDriver _webDriver;
-
         public RegistrationPage(IWebDriver webDriver)
+            : base(webDriver)
         {
-            _webDriver = webDriver;
         }
 
         public string Username
@@ -46,14 +44,8 @@ namespace MVCForumAutomation
 
         public void Register()
         {
-            var button = _webDriver.FindElement(By.CssSelector("form button"));
+            var button = WebDriver.FindElement(By.CssSelector("form button"));
             button.Click();
-        }
-
-        private void FillInputElement(string id, string value)
-        {
-            var input = _webDriver.FindElement(By.Id(id));
-            input.SendKeys(value);
         }
     }
 }
