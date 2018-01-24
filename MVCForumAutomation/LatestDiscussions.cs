@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Linq;
 using OpenQA.Selenium;
 
 namespace MVCForumAutomation
@@ -15,10 +17,25 @@ namespace MVCForumAutomation
         {
             get
             {
-                Activate();
-                var latestTopicRow = _webDriver.FindElement(By.ClassName("topicrow"));
-                return new DiscussionHeader(latestTopicRow);
+                var topicRows = GetAllTopicRows();
+                return new DiscussionHeader(topicRows.First());
             }
+        }
+
+        public DiscussionHeader Bottom
+        {
+            get
+            {
+                var topicRows = GetAllTopicRows();
+                return new DiscussionHeader(topicRows.Last());
+            }
+        }
+
+        private ReadOnlyCollection<IWebElement> GetAllTopicRows()
+        {
+            Activate();
+            var topicRows = _webDriver.FindElements(By.ClassName("topicrow"));
+            return topicRows;
         }
 
         private void Activate()
