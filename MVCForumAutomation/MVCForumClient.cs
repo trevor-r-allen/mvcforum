@@ -1,4 +1,5 @@
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.Extensions;
@@ -74,6 +75,9 @@ namespace MVCForumAutomation
             loginPage.Password = password;
             loginPage.LogOn();
 
+            var loginErrorMessage = loginPage.GetErrorMessageIfExists();
+            Assert.IsNull(loginErrorMessage, $"Login failed for user:{username} and password:{password}. Error message: {loginErrorMessage}");
+            
             return createLoggedInUser();
         }
 

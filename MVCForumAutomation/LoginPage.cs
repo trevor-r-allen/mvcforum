@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace MVCForumAutomation
@@ -25,6 +26,15 @@ namespace MVCForumAutomation
             {
                 FillInputElement("Password", value);
             }
+        }
+
+        /// <returns>
+        /// The error message displayed on the Login Page, or null if no error is displayed
+        /// </returns>
+        public string GetErrorMessageIfExists()
+        {
+            var errorMessageElement = WebDriver.TryFindElement(By.ClassName("validation-summary-errors"));
+            return errorMessageElement?.Text;
         }
 
         public void LogOn()
