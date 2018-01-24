@@ -24,10 +24,14 @@ namespace MVCForumAutomation
 
         public string Body
         {
+            get { return BodyElement.Text; }
+        }
+
+        public IWebElement BodyElement
+        {
             get
             {
-                var bodyElement = _webDriver.FindElement(By.ClassName("postcontent"));
-                return bodyElement.Text;
+                return _webDriver.FindElement(By.ClassName("postcontent"));
             }
         }
 
