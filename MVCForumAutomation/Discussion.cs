@@ -1,22 +1,24 @@
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace MVCForumAutomation
 {
     public class Discussion
     {
-        private readonly IWebDriver _webDriver;
+        private readonly IWebElement _container;
 
         public Discussion(IWebDriver webDriver)
         {
-            _webDriver = webDriver;
+            _container = webDriver.TryFindElement(By.ClassName("topicshow"));
+            Assert.IsNotNull(_container, "Failed to open discussion");
         }
 
         public string Title
         {
             get
             {
-                var titleElement = _webDriver.FindElement(By.CssSelector(".topicheading h1"));
+                var titleElement = _container.FindElement(By.CssSelector(".topicheading h1"));
                 return titleElement.Text;
             }
         }
@@ -31,7 +33,7 @@ namespace MVCForumAutomation
         {
             get
             {
-                return _webDriver.FindElement(By.ClassName("postcontent"));
+                return _container.FindElement(By.ClassName("postcontent"));
             }
         }
 
