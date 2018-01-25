@@ -42,6 +42,11 @@ namespace MVCForumAutomation
                 var screenshotFilename = $"Screenshot.{TestContext.TestName}.jpg";
                 MVCForum.TakeScreenshot(screenshotFilename);
                 TestContext.AddResultFile(screenshotFilename);
+
+                var htmlFilename = $"MVCForum.{TestContext.TestName}.html";
+                MVCForum.SaveHtml(htmlFilename);
+                TestContext.AddResultFile(htmlFilename);
+
             }
         }
 

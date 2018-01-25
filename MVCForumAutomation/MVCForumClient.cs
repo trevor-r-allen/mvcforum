@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -84,6 +85,12 @@ namespace MVCForumAutomation
         public void TakeScreenshot(string screenshotFilename)
         {
             _webDriver.TakeScreenshot().SaveAsFile(screenshotFilename);
+        }
+
+        public void SaveHtml(string htmlFilename)
+        {
+            var pageSource = _webDriver.PageSource;
+            File.WriteAllText(htmlFilename, pageSource);
         }
     }
 }
