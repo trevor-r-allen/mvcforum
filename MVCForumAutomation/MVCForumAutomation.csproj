@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractBuilder.cs" />
     <Compile Include="AdminPage.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Discussion.cs" />

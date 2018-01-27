@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace MVCForumAutomation
@@ -55,7 +56,7 @@ namespace MVCForumAutomation
         {
             const string body = "dummy body";
             var userA = MVCForum.RegisterNewUserAndLogin();
-            var createdDiscussion = userA.CreateDiscussion(DiscussionWith.Body(body));
+            var createdDiscussion = userA.CreateDiscussion.With.Body(body).Go();
 
             var anonymousUser = OpenNewMVCForumClient();
             var latestHeader = anonymousUser.LatestDiscussions.Top;
@@ -66,10 +67,10 @@ namespace MVCForumAutomation
                 "The body of the latest discussion should match the one we created");
         }
 
-        public Discussion.DiscussionBuilder DiscussionWith
-        {
-            get { return new Discussion.DiscussionBuilder(TestDefaults); }
-        }
+        //public LoggedInUser.DiscussionBuilder DiscussionWith
+        //{
+        //    get { return new LoggedInUser.DiscussionBuilder(TestDefaults); }
+        //}
 
         private MVCForumClient OpenNewMVCForumClient()
         {
