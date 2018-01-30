@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Web;
 using AventStack.ExtentReports;
@@ -7,6 +8,8 @@ using AventStack.ExtentReports.MarkupUtils;
 using AventStack.ExtentReports.Reporter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Events;
+using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
@@ -39,7 +42,7 @@ namespace MVCForumAutomation
 
         private void WriteLine(string message)
         {
-            s_testLog.Info(new IndentMarkup(_indentationLevel, message));
+            s_testLog?.Info(new IndentMarkup(_indentationLevel, message));
         }
 
         void ICustomLogger.StartSection(DateTime timestamp, string message)
@@ -75,10 +78,43 @@ namespace MVCForumAutomation
 
         public static void AddScreenshot(Screenshot screenshot)
         {
+            var filename = GetUniqueImageFilename();
+            screenshot.SaveAsFile(filename);
+            AddImage(filename);
+        }
+
+        private static string GetUniqueImageFilename()
+        {
             var directoryInfo = Directory.CreateDirectory("Screenshots");
             var filename = Path.Combine(directoryInfo.Name, $"{Guid.NewGuid()}.jpg");
-            screenshot.SaveAsFile(filename);
-            s_testLog.AddScreenCaptureFromPath(filename);
+            return filename;
+        }
+
+        private static void AddImage(Image image)
+        {
+            var filename = GetUniqueImageFilename();
+            image.Save(filename);
+            AddImage(filename);
+        }
+
+        private static void AddImage(string filename)
+        {
+            s_testLog?.Info(new ImageMarkup(filename));
+        }
+
+        private class ImageMarkup : IMarkup
+        {
+            private readonly string _filename;
+
+            public ImageMarkup(string filename)
+            {
+                _filename = filename;
+            }
+
+            public string GetMarkup()
+            {
+                return $"<img width='20%' style='margin-left:2cm' src='{_filename}' data-src='{_filename}' data-featherlight='{_filename}'>";
+            }
         }
 
         public static void ReportOutcome(TestContext testContext, ITakesScreenshot screenshotProvider)
@@ -93,6 +129,57 @@ namespace MVCForumAutomation
             }
 
             s_reports.Flush();
+        }
+
+        public static void RegisterWebDriverEvents(EventFiringWebDriver eventFiringDriver)
+        {
+            eventFiringDriver.ElementClicking += EventFiringDriver_ElementClicking;
+            eventFiringDriver.ElementValueChanged += EventFiringDriver_ElementValueChanged;
+            eventFiringDriver.Navigating += EventFiringDriver_Navigating;
+            eventFiringDriver.Navigated += EventFiringDriver_Navigated;
+        }
+
+        private static void EventFiringDriver_Navigated(object sender, WebDriverNavigationEventArgs e)
+        {
+            var webDriver = e.Driver;
+            Logger.WriteLine($"Navigated to '{webDriver.Title}' ({webDriver.Url})");
+            AddScreenshot(webDriver.TakeScreenshot());
+        }
+
+        private static void EventFiringDriver_Navigating(object sender, WebDriverNavigationEventArgs e)
+        {
+            Logger.WriteLine($"Navigating to {e.Url}");
+        }
+
+        private static void EventFiringDriver_ElementValueChanged(object sender, WebElementEventArgs e)
+        {
+            var name = e.Element.GetAttribute("name");
+            var id = e.Element.GetAttribute("id");
+            var elementDescription = name ?? id ?? "(unknown)";
+            var newValue = e.Element.GetAttribute("value");
+            Logger.WriteLine($"Changed value of '{elementDescription}' to '{newValue}'");
+            AddScreenshot(e.Driver.TakeScreenshot());
+        }
+
+        private static void EventFiringDriver_ElementClicking(object sender, WebElementEventArgs e)
+        {
+            var text = e.Element.Text;
+            Logger.WriteLine($"Clicking on '{text}'");
+            var screenshot = e.Driver.TakeScreenshot();
+            var image = HighlightElement(screenshot, e.Element);
+            AddImage(image);
+        }
+
+        private static Image HighlightElement(Screenshot screenshot, IWebElement element)
+        {
+            var image = Image.FromStream(new MemoryStream(screenshot.AsByteArray));
+            using (var g = Graphics.FromImage(image))
+            {
+                var redPen = Pens.Red;
+                g.DrawRectangle(redPen, new Rectangle(element.Location, element.Size));
+                image.Save(@"C:\temp\test.jpg");
+            }
+            return image;
         }
     }
 }

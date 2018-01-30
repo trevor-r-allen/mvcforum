@@ -18,7 +18,7 @@ namespace MVCForumAutomation
             get
             {
                 var topicRows = GetAllTopicRows();
-                return new DiscussionHeader(topicRows.First());
+                return new DiscussionHeader(topicRows.First(), _webDriver);
             }
         }
 
@@ -27,7 +27,7 @@ namespace MVCForumAutomation
             get
             {
                 var topicRows = GetAllTopicRows();
-                return new DiscussionHeader(topicRows.Last());
+                return new DiscussionHeader(topicRows.Last(), _webDriver);
             }
         }
 
