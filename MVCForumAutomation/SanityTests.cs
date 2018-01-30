@@ -59,9 +59,7 @@ namespace MVCForumAutomation
             if (TestContext.CurrentTestOutcome != UnitTestOutcome.Passed)
             {
                 TestLog.Fail("Test outcome=" + TestContext.CurrentTestOutcome);
-                var screenshotFilename = $"Screenshot.{TestContext.TestName}.jpg";
-                MVCForum.TakeScreenshot(screenshotFilename);
-                TestLog.AddScreenCaptureFromPath(screenshotFilename);
+                MVCForum.TakeScreenshot();
             }
             else
                 TestLog.Pass("Test Passed");

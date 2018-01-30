@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -81,12 +82,12 @@ namespace MVCForumAutomation
             return createLoggedInUser();
         }
 
-        public void TakeScreenshot(string screenshotFilename)
+        public void TakeScreenshot()
         {
-            _webDriver.TakeScreenshot().SaveAsFile(screenshotFilename);
-            OnScreenshotTaken?.Invoke(this, new ScreenshotEventArgs(screenshotFilename));
+            var directoryInfo = Directory.CreateDirectory("Screenshots");
+            var filename = Path.Combine(directoryInfo.Name, $"{Guid.NewGuid()}.jpg");
+            _webDriver.TakeScreenshot().SaveAsFile(filename);
+            SanityTests.TestLog.AddScreenCaptureFromPath(filename);
         }
-
-        public event EventHandler<ScreenshotEventArgs> OnScreenshotTaken;
     }
 }
