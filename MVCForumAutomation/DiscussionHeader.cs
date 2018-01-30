@@ -1,6 +1,7 @@
 using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
+using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
@@ -24,11 +25,14 @@ namespace MVCForumAutomation
 
         public Discussion OpenDiscussion()
         {
-            var link = _topicRow.FindElement(By.CssSelector("h3 a"));
-            link.Click();
+            using (Logger.StartSection($"Opening discussion '{Title}'"))
+            {
+                var link = _topicRow.FindElement(By.CssSelector("h3 a"));
+                link.Click();
 
-            var driver = ((IWrapsDriver) _topicRow).WrappedDriver;
-            return new Discussion(driver);
+                var driver = ((IWrapsDriver)_topicRow).WrappedDriver;
+                return new Discussion(driver);
+            }
         }
     }
 }

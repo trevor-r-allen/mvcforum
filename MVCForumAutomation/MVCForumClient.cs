@@ -1,13 +1,14 @@
 using System;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
+using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
-    public class MVCForumClient
+    public class MVCForumClient : ITakesScreenshot
     {
         private readonly TestDefaults _testDefaults;
         private readonly IWebDriver _webDriver;
@@ -16,7 +17,10 @@ namespace MVCForumAutomation
         {
             _testDefaults = testDefaults;
             // TODO: select the type of browser and the URL from a configuration file
-            _webDriver = new ChromeDriver();
+            var parentDriver = new ChromeDriver();
+            var eventFiringDriver = new EventFiringWebDriver(parentDriver);
+            VisualLogger.RegisterWebDriverEvents(eventFiringDriver);
+            _webDriver = eventFiringDriver;
             _webDriver.Url = "http://localhost:8080";
         }
 
@@ -71,23 +75,35 @@ namespace MVCForumAutomation
         private TLoggedInUser LoginAs<TLoggedInUser>(string username, string password, Func<TLoggedInUser> createLoggedInUser)
             where TLoggedInUser : LoggedInUser
         {
-            var loginPage = GoToLoginPage();
-            loginPage.Username = username;
-            loginPage.Password = password;
-            loginPage.LogOn();
+            using (Logger.StartSection($"Logging in as '{username}'/'{password}'"))
+            {
+                var loginPage = GoToLoginPage();
+                loginPage.Username = username;
+                loginPage.Password = password;
+                loginPage.LogOn();
 
-            var loginErrorMessage = loginPage.GetErrorMessageIfExists();
-            Assert.IsNull(loginErrorMessage, $"Login failed for user:{username} and password:{password}. Error message: {loginErrorMessage}");
-            
-            return createLoggedInUser();
+                var loginErrorMessage = loginPage.GetErrorMessageIfExists();
+                Assert.IsNull(loginErrorMessage,
+                    $"Login failed for user:{username} and password:{password}. Error message: {loginErrorMessage}");
+
+                return createLoggedInUser();
+            }
         }
 
         public void TakeScreenshot()
         {
-            var directoryInfo = Directory.CreateDirectory("Screenshots");
-            var filename = Path.Combine(directoryInfo.Name, $"{Guid.NewGuid()}.jpg");
-            _webDriver.TakeScreenshot().SaveAsFile(filename);
-            SanityTests.TestLog.AddScreenCaptureFromPath(filename);
+            var screenshot = GetScreenshotInternal();
+            VisualLogger.AddScreenshot(screenshot);
+        }
+
+        Screenshot ITakesScreenshot.GetScreenshot()
+        {
+            return GetScreenshotInternal();
+        }
+
+        private Screenshot GetScreenshotInternal()
+        {
+            return _webDriver.TakeScreenshot();
         }
     }
 }
