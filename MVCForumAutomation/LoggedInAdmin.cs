@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
@@ -11,13 +12,16 @@ namespace MVCForumAutomation
 
         public AdminPage GoToAdminPage()
         {
-            var myToolsMenu = WebDriver.FindElement(By.ClassName("mytoolslink"));
-            myToolsMenu.Click();
+            using (Logger.StartSection("Openning Admin page"))
+            {
+                var myToolsMenu = WebDriver.FindElement(By.ClassName("mytoolslink"));
+                myToolsMenu.Click();
 
-            var adminLink = WebDriver.FindElement(By.CssSelector(".dropdown .auto-admin"));
-            adminLink.Click();
+                var adminLink = WebDriver.FindElement(By.CssSelector(".dropdown .auto-admin"));
+                adminLink.Click();
 
-            return new AdminPage(WebDriver);
+                return new AdminPage(WebDriver);
+            }
         }
     }
 }

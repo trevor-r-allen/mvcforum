@@ -50,6 +50,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="TestAutomationEssentials.Common, Version=1.3.6465.28217, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestAutomationEssentials.Common.1.3.6465.28217\lib\net45\TestAutomationEssentials.Common.dll</HintPath>
+    </Reference>
     <Reference Include="WebDriver, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.8.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
@@ -64,6 +68,7 @@
     <Compile Include="DiscussionHeader.cs" />
     <Compile Include="FormPage.cs" />
     <Compile Include="LatestDiscussions.cs" />
+    <Compile Include="VisualLogger.cs" />
     <Compile Include="LoggedInAdmin.cs" />
     <Compile Include="LoginPage.cs" />
     <Compile Include="LoggedInUser.cs" />
