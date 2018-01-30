@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace MVCForumAutomation
@@ -6,24 +8,38 @@ namespace MVCForumAutomation
     [TestClass]
     public class SanityTests
     {
+        private static ExtentReports s_reports;
+        public static ExtentTest TestLog;
+
         public SanityTests()
         {
             TestDefaults = new TestDefaults();
             MVCForum = new MVCForumClient(TestDefaults);
-            MVCForum.OnScreenshotTaken += AddScreenshotToTestResults;
+        }
+
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext context)
+        {
+            s_reports = new ExtentReports();
+            var reportPath = "Report.html";
+            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            context.AddResultFile(reportPath);
+            s_reports.AttachReporter(htmlReporter);
         }
 
         [TestInitialize]
         public void TestInitialize()
         {
+            TestLog = s_reports.CreateTest(TestContext.TestName);
+
             var adminPassword = GetAdminPassword();
             var adminUser = MVCForum.LoginAsAdmin(adminPassword);
             var adminPage = adminUser.GoToAdminPage();
             var permissions = adminPage.GetPermissionsFor(TestDefaults.StandardMembers);
-            MVCForum.TakeScreenshot("BeforeAddingCreateTopicsPermissions.jpg");
             permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
-            MVCForum.TakeScreenshot("AfterAddingCreateTopicsPermissions.jpg");
             adminUser.Logout();
+
+            TestLog.Info("Test Initialize Completed");
         }
 
         private string GetAdminPassword()
@@ -35,11 +51,6 @@ namespace MVCForumAutomation
             return password.Text;
         }
 
-        private void AddScreenshotToTestResults(object sender, ScreenshotEventArgs e)
-        {
-            TestContext.AddResultFile(e.Filename);
-        }
-
         public TestContext TestContext { get; set; }
 
         [TestCleanup]
@@ -47,10 +58,20 @@ namespace MVCForumAutomation
         {
             if (TestContext.CurrentTestOutcome != UnitTestOutcome.Passed)
             {
+                TestLog.Fail("Test outcome=" + TestContext.CurrentTestOutcome);
                 var screenshotFilename = $"Screenshot.{TestContext.TestName}.jpg";
                 MVCForum.TakeScreenshot(screenshotFilename);
+                TestLog.AddScreenCaptureFromPath(screenshotFilename);
             }
+            else
+                TestLog.Pass("Test Passed");
+
+            s_reports.Flush();
         }
+
+        [TestMethod]
+        public void AnotherTest()
+        { }
 
         [TestMethod]
         public void WhenARegisteredUserStartsADiscussionOtherAnonymousUsersCanSeeIt()
