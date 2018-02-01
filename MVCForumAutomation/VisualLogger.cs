@@ -20,7 +20,7 @@ namespace MVCForumAutomation
         private static ExtentTest s_testLog;
 
         private int _indentationLevel;
-        private readonly Stack<string> _sections = new Stack<string>();
+        private readonly Stack<(string message, Guid id)> _sections = new Stack<(string, Guid)>();
 
         public static void Initialize(string reportPath)
         {
@@ -42,20 +42,29 @@ namespace MVCForumAutomation
 
         private void WriteLine(string message)
         {
-            s_testLog?.Info(new IndentMarkup(_indentationLevel, message));
+            WriteHtml(HttpUtility.HtmlEncode(message));
+        }
+
+        private void WriteHtml(string html)
+        {
+            s_testLog?.Info(new IndentMarkup(_indentationLevel, html));
         }
 
         void ICustomLogger.StartSection(DateTime timestamp, string message)
         {
-            ((ICustomLogger) this).WriteLine(timestamp, message);
+            var sectionId = Guid.NewGuid();
+            WriteHtml($"<div id='start_{sectionId}'><a href='#end_{sectionId}'>&dArr; </a>{HttpUtility.HtmlEncode(message)}</div>");
             _indentationLevel++;
-            _sections.Push(message);
+            _sections.Push((message, sectionId));
         }
 
         void ICustomLogger.EndSection(DateTime timestamp)
         {
             _indentationLevel--;
-            WriteLine($"[Done: {_sections.Pop()}]");
+            var sectionInfo = _sections.Pop();
+            var sectionId = sectionInfo.id;
+            var message = sectionInfo.message;
+            WriteHtml($"<div id='end_{sectionId}'><a href='#start_{sectionId}'>&uArr; </a>[Done: {HttpUtility.HtmlEncode(message)}]</div>");
         }
 
         private class IndentMarkup : IMarkup
@@ -71,8 +80,7 @@ namespace MVCForumAutomation
 
             public string GetMarkup()
             {
-                var encodedMessage = HttpUtility.HtmlEncode(_message);
-                return $"<span style='padding-left:{_indentation}cm'>{encodedMessage}</span>";
+                return $"<div style='padding-left:{_indentation}cm'>{_message}</div>";
             }
         }
 
