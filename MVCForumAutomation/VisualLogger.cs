@@ -181,5 +181,10 @@ namespace MVCForumAutomation
             }
             return image;
         }
+
+        public static void AddScreenshot(ITakesScreenshot screenshotProvider)
+        {
+            AddScreenshot(screenshotProvider.GetScreenshot());
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
@@ -24,6 +25,7 @@ namespace MVCForumAutomation
 
                 var permissionCheckboxes = categoryRow.FindElements(By.CssSelector(".permissioncheckbox input"));
                 var permissionCheckbox = permissionCheckboxes[(int) permissionType];
+                VisualLogger.AddScreenshot(_webDriver.TakeScreenshot());
                 if (!permissionCheckbox.Selected)
                     permissionCheckbox.Click();
             }
