@@ -84,6 +84,9 @@ namespace MVCForumAutomation
         public void TakeScreenshot(string screenshotFilename)
         {
             _webDriver.TakeScreenshot().SaveAsFile(screenshotFilename);
+            OnScreenshotTaken?.Invoke(this, new ScreenshotEventArgs(screenshotFilename));
         }
+
+        public event EventHandler<ScreenshotEventArgs> OnScreenshotTaken;
     }
 }

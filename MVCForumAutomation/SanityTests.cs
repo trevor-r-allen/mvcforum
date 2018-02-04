@@ -10,6 +10,7 @@ namespace MVCForumAutomation
         {
             TestDefaults = new TestDefaults();
             MVCForum = new MVCForumClient(TestDefaults);
+            MVCForum.OnScreenshotTaken += AddScreenshotToTestResults;
         }
 
         [TestInitialize]
@@ -19,7 +20,9 @@ namespace MVCForumAutomation
             var adminUser = MVCForum.LoginAsAdmin(adminPassword);
             var adminPage = adminUser.GoToAdminPage();
             var permissions = adminPage.GetPermissionsFor(TestDefaults.StandardMembers);
+            MVCForum.TakeScreenshot("BeforeAddingCreateTopicsPermissions.jpg");
             permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
+            MVCForum.TakeScreenshot("AfterAddingCreateTopicsPermissions.jpg");
             adminUser.Logout();
         }
 
@@ -32,6 +35,11 @@ namespace MVCForumAutomation
             return password.Text;
         }
 
+        private void AddScreenshotToTestResults(object sender, ScreenshotEventArgs e)
+        {
+            TestContext.AddResultFile(e.Filename);
+        }
+
         public TestContext TestContext { get; set; }
 
         [TestCleanup]
@@ -41,7 +49,6 @@ namespace MVCForumAutomation
             {
                 var screenshotFilename = $"Screenshot.{TestContext.TestName}.jpg";
                 MVCForum.TakeScreenshot(screenshotFilename);
-                TestContext.AddResultFile(screenshotFilename);
             }
         }
 
