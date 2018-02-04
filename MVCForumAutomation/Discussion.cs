@@ -58,8 +58,6 @@ namespace MVCForumAutomation
                 createDiscussionPage.Title = Guid.NewGuid().ToString();
                 createDiscussionPage.SelectCategory(_testDefaults.ExampleCategory);
                 createDiscussionPage.Body = _body;
-
-                createDiscussionPage.CreateDiscussion();
             }
         }
     }
