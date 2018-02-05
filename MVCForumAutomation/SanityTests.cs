@@ -67,10 +67,6 @@ namespace MVCForumAutomation
         }
 
         [TestMethod]
-        public void AnotherTest()
-        { }
-
-        [TestMethod]
         public void WhenARegisteredUserStartsADiscussionOtherAnonymousUsersCanSeeIt()
         {
             const string body = "dummy body";
