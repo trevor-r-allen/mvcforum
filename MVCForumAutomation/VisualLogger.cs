@@ -177,7 +177,6 @@ namespace MVCForumAutomation
             {
                 var redPen = Pens.Red;
                 g.DrawRectangle(redPen, new Rectangle(element.Location, element.Size));
-                image.Save(@"C:\temp\test.jpg");
             }
             return image;
         }
