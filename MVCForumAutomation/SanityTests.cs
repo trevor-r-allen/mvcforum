@@ -82,6 +82,24 @@ namespace MVCForumAutomation
                 "The body of the latest discussion should match the one we created");
         }
 
+        [TestMethod]
+        public void DiscussionsCanBeFilteredByCategory()
+        {
+            var adminConsole = MVCForum.AdminConsole;
+            var categoryA = adminConsole.CreateCategory();
+            var categoryB = adminConsole.CreateCategory();
+
+            var user = MVCForum.RegisterNewUserAndLogin();
+            var discussion = user.CreateDiscussion(DiscussionWith.Category(categoryA));
+
+            var categoryView = MVCForum.Categories.Select(categoryA);
+            Assert.AreEqual(1, categoryView.Discussions.Count, $"1 discussion is expected in categoryA ({categoryA.Name})");
+            Assert.AreEqual(discussion, categoryView.Discussions.Single(), $"The single discussion in categoryA ({categoryA.Name}) is expected to be the same category that we've created ('{discussion.Title}");
+
+            categoryView = MVCForum.Categories.Select(categoryB);
+            Assert.AreEqual(0, categoryView.Discussions.Count, $"No discussions expected in categoryB ({categoryB.Name}");
+        }
+
         public Discussion.DiscussionBuilder DiscussionWith
         {
             get { return new Discussion.DiscussionBuilder(TestDefaults); }
