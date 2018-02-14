@@ -62,8 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminPage.cs" />
+    <Compile Include="AdminConsole.cs" />
+    <Compile Include="CategoriesList.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CategoryView.cs" />
     <Compile Include="Discussion.cs" />
     <Compile Include="DiscussionHeader.cs" />
     <Compile Include="FormPage.cs" />

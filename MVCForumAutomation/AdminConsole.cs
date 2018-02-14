@@ -3,11 +3,11 @@ using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
-    public class AdminPage
+    public class AdminConsole
     {
         private readonly IWebDriver _webDriver;
 
-        public AdminPage(IWebDriver webDriver)
+        public AdminConsole(IWebDriver webDriver)
         {
             _webDriver = webDriver;
         }
@@ -29,6 +29,11 @@ namespace MVCForumAutomation
 
                 return new RolePermissionsPage(_webDriver);
             }
+        }
+
+        public Category CreateCategory()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

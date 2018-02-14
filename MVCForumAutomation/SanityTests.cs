@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using TestAutomationEssentials.Common;
 
@@ -37,8 +38,8 @@ namespace MVCForumAutomation
             {
                 var adminPassword = GetAdminPassword();
                 var adminUser = MVCForum.LoginAsAdmin(adminPassword);
-                var adminPage = adminUser.GoToAdminPage();
-                var permissions = adminPage.GetPermissionsFor(TestDefaults.StandardMembers);
+                var adminConsole = adminUser.GoToAdminConsole();
+                var permissions = adminConsole.GetPermissionsFor(TestDefaults.StandardMembers);
                 permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
                 adminUser.Logout();
             }

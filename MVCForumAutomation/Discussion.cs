@@ -59,6 +59,11 @@ namespace MVCForumAutomation
                 createDiscussionPage.SelectCategory(_testDefaults.ExampleCategory);
                 createDiscussionPage.Body = _body;
             }
+
+            public DiscussionBuilder Category(Category category)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
