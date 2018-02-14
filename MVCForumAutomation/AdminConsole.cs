@@ -49,7 +49,10 @@ namespace MVCForumAutomation
 
         private AdminCategoriesPage OpenCategoriesPage()
         {
-            throw new NotImplementedException();
+            var categoriesLink = _webDriver.FindElement(By.ClassName("auto-adminCategory"));
+            categoriesLink.Click();
+
+            return new AdminCategoriesPage(_webDriver);
         }
 
         public void Dispose()

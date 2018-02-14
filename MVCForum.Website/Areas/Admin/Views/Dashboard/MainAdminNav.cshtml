@@ -41,7 +41,7 @@
             </a>
         </li>
         <li>
-            <a href="@Url.Action("Index", "AdminCategory", new { area = "Admin" }, null)" class="@(currentController == "admincategory" && currentAction == "index" ? "active" : "")">
+            <a href="@Url.Action("Index", "AdminCategory", new { area = "Admin" }, null)" class="auto-adminCategory @(currentController == "admincategory" && currentAction == "index" ? "active" : "")">
                 <i class="fa fa-fw fa-folder-open-o"></i> Categories
             </a>
         </li>
