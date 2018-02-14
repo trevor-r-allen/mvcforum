@@ -1,9 +1,10 @@
+using System;
 using OpenQA.Selenium;
 using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
-    public class AdminConsole
+    public class AdminConsole : IDisposable
     {
         private readonly IWebDriver _webDriver;
 
@@ -33,7 +34,12 @@ namespace MVCForumAutomation
 
         public Category CreateCategory()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

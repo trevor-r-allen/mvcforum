@@ -67,9 +67,9 @@ namespace MVCForumAutomation
             get { return new LatestDiscussions(_webDriver); }
         }
 
-        public AdminConsole AdminConsole
+        public AdminConsole OpenAdminConsole()
         {
-            get { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
 
         public CategoriesList Categories
