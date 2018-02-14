@@ -20,7 +20,7 @@ namespace MVCForumAutomation
                 var adminLink = WebDriver.FindElement(By.CssSelector(".dropdown .auto-admin"));
                 adminLink.Click();
 
-                return new AdminConsole(WebDriver, this);
+                return new AdminConsole(WebDriver, TestDefaults, this);
             }
         }
     }
