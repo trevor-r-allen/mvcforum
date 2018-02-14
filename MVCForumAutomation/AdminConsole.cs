@@ -8,12 +8,13 @@ namespace MVCForumAutomation
     {
         private readonly IWebDriver _webDriver;
         private readonly LoggedInAdmin _loggedInAdmin;
+        private readonly TestDefaults _testDefaults;
 
-        public AdminConsole(
-            IWebDriver webDriver, LoggedInAdmin loggedInAdmin)
+        public AdminConsole(IWebDriver webDriver, TestDefaults testDefaults, LoggedInAdmin loggedInAdmin)
         {
             _webDriver = webDriver;
             _loggedInAdmin = loggedInAdmin;
+            _testDefaults = testDefaults;
         }
 
         public RolePermissionsPage GetPermissionsFor(Role role)
@@ -36,6 +37,17 @@ namespace MVCForumAutomation
         }
 
         public Category CreateCategory()
+        {
+            var categoryName = Guid.NewGuid().ToString();
+
+            var categoriesPage = OpenCategoriesPage();
+            var category = categoriesPage.Create(categoryName);
+
+            GetPermissionsFor(_testDefaults.StandardMembers).AddToCategory(category, PermissionTypes.CreateTopics);
+            return category;
+        }
+
+        private AdminCategoriesPage OpenCategoriesPage()
         {
             throw new NotImplementedException();
         }

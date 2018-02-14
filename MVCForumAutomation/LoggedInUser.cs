@@ -5,12 +5,12 @@ namespace MVCForumAutomation
     public class LoggedInUser
     {
         protected readonly IWebDriver WebDriver;
-        private readonly TestDefaults _testDefaults;
+        protected readonly TestDefaults TestDefaults;
 
         public LoggedInUser(IWebDriver webDriver, TestDefaults testDefaults)
         {
             WebDriver = webDriver;
-            _testDefaults = testDefaults;
+            TestDefaults = testDefaults;
         }
 
         public Discussion CreateDiscussion(Discussion.DiscussionBuilder builder)
