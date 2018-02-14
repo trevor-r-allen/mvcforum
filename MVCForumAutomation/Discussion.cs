@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
@@ -41,6 +43,7 @@ namespace MVCForumAutomation
         {
             private string _body = string.Empty;
             private Category _category;
+            private readonly Dictionary<string, string> _parametersDescriptions = new Dictionary<string, string>();
 
             public DiscussionBuilder(TestDefaults testDefaults)
             {
@@ -50,12 +53,14 @@ namespace MVCForumAutomation
             public DiscussionBuilder Body(string body)
             {
                 _body = body;
+                _parametersDescriptions["Body"] = body;
                 return this;
             }
 
             public DiscussionBuilder Category(Category category)
             {
                 _category = category;
+                _parametersDescriptions["Category"] = category.Name;
                 return this;
             }
 
@@ -64,6 +69,11 @@ namespace MVCForumAutomation
                 createDiscussionPage.Title = Guid.NewGuid().ToString();
                 createDiscussionPage.SelectCategory(_category);
                 createDiscussionPage.Body = _body;
+            }
+
+            public string Describe()
+            {
+                return string.Join(", ", _parametersDescriptions.Select(p => $"{p.Key}:'{p.Value}'"));
             }
         }
     }
