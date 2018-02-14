@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
@@ -15,14 +16,17 @@ namespace MVCForumAutomation
 
         public Discussion CreateDiscussion(Discussion.DiscussionBuilder builder)
         {
-            var newDiscussionButton = WebDriver.FindElement(By.ClassName("createtopicbutton"));
-            newDiscussionButton.Click();
+            using (Logger.StartSection($"Creating a discussion with: {builder.Describe()}"))
+            {
+                var newDiscussionButton = WebDriver.FindElement(By.ClassName("createtopicbutton"));
+                newDiscussionButton.Click();
 
-            var createDisucssionPage = new CreateDiscussionPage(WebDriver);
-            builder.Fill(createDisucssionPage);
-            createDisucssionPage.CreateDiscussion();
+                var createDisucssionPage = new CreateDiscussionPage(WebDriver);
+                builder.Fill(createDisucssionPage);
+                createDisucssionPage.CreateDiscussion();
 
-            return new Discussion(WebDriver);
+                return new Discussion(WebDriver);
+            }
         }
 
         public void Logout()
