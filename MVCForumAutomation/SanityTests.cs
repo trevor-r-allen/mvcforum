@@ -36,12 +36,11 @@ namespace MVCForumAutomation
         {
             using (Logger.StartSection("Adding 'Create Topic' permission to Standard members"))
             {
-                var adminPassword = MVCForum.GetAdminPassword();
-                var adminUser = MVCForum.LoginAsAdmin(adminPassword);
-                var adminConsole = adminUser.GoToAdminConsole();
-                var permissions = adminConsole.GetPermissionsFor(TestDefaults.StandardMembers);
-                permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
-                adminUser.Logout();
+                using (var adminConsole = MVCForum.OpenAdminConsole())
+                {
+                    var permissions = adminConsole.GetPermissionsFor(TestDefaults.StandardMembers);
+                    permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
+                }
             }
         }
 
