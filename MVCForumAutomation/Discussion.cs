@@ -39,12 +39,12 @@ namespace MVCForumAutomation
 
         public class DiscussionBuilder
         {
-            private readonly TestDefaults _testDefaults;
-            private string _body;
+            private string _body = string.Empty;
+            private Category _category;
 
             public DiscussionBuilder(TestDefaults testDefaults)
             {
-                _testDefaults = testDefaults;
+                _category = testDefaults.ExampleCategory;
             }
 
             public DiscussionBuilder Body(string body)
@@ -53,16 +53,17 @@ namespace MVCForumAutomation
                 return this;
             }
 
+            public DiscussionBuilder Category(Category category)
+            {
+                _category = category;
+                return this;
+            }
+
             public void Fill(CreateDiscussionPage createDiscussionPage)
             {
                 createDiscussionPage.Title = Guid.NewGuid().ToString();
-                createDiscussionPage.SelectCategory(_testDefaults.ExampleCategory);
+                createDiscussionPage.SelectCategory(_category);
                 createDiscussionPage.Body = _body;
-            }
-
-            public DiscussionBuilder Category(Category category)
-            {
-                throw new NotImplementedException();
             }
         }
     }
