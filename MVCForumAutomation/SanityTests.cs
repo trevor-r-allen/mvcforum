@@ -36,26 +36,12 @@ namespace MVCForumAutomation
         {
             using (Logger.StartSection("Adding 'Create Topic' permission to Standard members"))
             {
-                var adminPassword = GetAdminPassword();
+                var adminPassword = MVCForum.GetAdminPassword();
                 var adminUser = MVCForum.LoginAsAdmin(adminPassword);
                 var adminConsole = adminUser.GoToAdminConsole();
                 var permissions = adminConsole.GetPermissionsFor(TestDefaults.StandardMembers);
                 permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
                 adminUser.Logout();
-            }
-        }
-
-        private string GetAdminPassword()
-        {
-            using (Logger.StartSection("Getting Admin password from 'Read Me' topic"))
-            {
-                var readMeHeader = MVCForum.LatestDiscussions.Bottom;
-                var readmeTopic = readMeHeader.OpenDiscussion();
-                var body = readmeTopic.BodyElement;
-                var password = body.FindElement(By.XPath(".//strong[2]"));
-                var adminPassword = password.Text;
-                Logger.WriteLine($"Admin password='{adminPassword}'");
-                return adminPassword;
             }
         }
 

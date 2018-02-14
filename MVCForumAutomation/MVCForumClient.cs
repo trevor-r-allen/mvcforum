@@ -69,7 +69,11 @@ namespace MVCForumAutomation
 
         public AdminConsole OpenAdminConsole()
         {
-            throw new NotImplementedException();
+            var adminPassword = GetAdminPassword();
+            var adminUser = LoginAsAdmin(adminPassword);
+            var adminConsole = adminUser.GoToAdminConsole();
+
+            return adminConsole;
         }
 
         public CategoriesList Categories
@@ -114,6 +118,20 @@ namespace MVCForumAutomation
         private Screenshot GetScreenshotInternal()
         {
             return _webDriver.TakeScreenshot();
+        }
+
+        public string GetAdminPassword()
+        {
+            using (Logger.StartSection("Getting Admin password from 'Read Me' topic"))
+            {
+                var readMeHeader = this.LatestDiscussions.Bottom;
+                var readmeTopic = readMeHeader.OpenDiscussion();
+                var body = readmeTopic.BodyElement;
+                var password = body.FindElement(By.XPath(".//strong[2]"));
+                var adminPassword = password.Text;
+                Logger.WriteLine($"Admin password='{adminPassword}'");
+                return adminPassword;
+            }
         }
     }
 }
