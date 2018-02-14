@@ -13,7 +13,14 @@ namespace MVCForumAutomation
 
         public Category Create(string categoryName)
         {
-            throw new System.NotImplementedException();
+            var createNewButton = _webDriver.FindElement(By.ClassName("auto-createCategory"));
+            createNewButton.Click();
+
+            var createCategoryPage = new CreateCategoryPage(_webDriver);
+            createCategoryPage.CategoryName = categoryName;
+            createCategoryPage.Create();
+
+            return new Category(categoryName);
         }
     }
 }
