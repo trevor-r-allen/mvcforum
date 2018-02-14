@@ -7,10 +7,13 @@ namespace MVCForumAutomation
     public class AdminConsole : IDisposable
     {
         private readonly IWebDriver _webDriver;
+        private readonly LoggedInAdmin _loggedInAdmin;
 
-        public AdminConsole(IWebDriver webDriver)
+        public AdminConsole(
+            IWebDriver webDriver, LoggedInAdmin loggedInAdmin)
         {
             _webDriver = webDriver;
+            _loggedInAdmin = loggedInAdmin;
         }
 
         public RolePermissionsPage GetPermissionsFor(Role role)
@@ -39,7 +42,7 @@ namespace MVCForumAutomation
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _loggedInAdmin.Logout();
         }
     }
 }
