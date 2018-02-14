@@ -12,9 +12,12 @@ namespace MVCForumAutomation
     {
         private readonly TestDefaults _testDefaults;
         private readonly IWebDriver _webDriver;
+        private readonly Lazy<string> _adminPassword;
 
         public MVCForumClient(TestDefaults testDefaults)
         {
+            _adminPassword = new Lazy<string>(GetAdminPassword);
+
             _testDefaults = testDefaults;
             // TODO: select the type of browser and the URL from a configuration file
             var parentDriver = new ChromeDriver();
@@ -69,8 +72,7 @@ namespace MVCForumAutomation
 
         public AdminConsole OpenAdminConsole()
         {
-            var adminPassword = GetAdminPassword();
-            var adminUser = LoginAsAdmin(adminPassword);
+            var adminUser = LoginAsAdmin(_adminPassword.Value);
             var adminConsole = adminUser.GoToAdminConsole();
 
             return adminConsole;
