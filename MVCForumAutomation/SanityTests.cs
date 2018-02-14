@@ -86,9 +86,12 @@ namespace MVCForumAutomation
         [TestMethod]
         public void DiscussionsCanBeFilteredByCategory()
         {
-            var adminConsole = MVCForum.AdminConsole;
-            var categoryA = adminConsole.CreateCategory();
-            var categoryB = adminConsole.CreateCategory();
+            Category categoryA, categoryB;
+            using (var adminConsole = MVCForum.OpenAdminConsole())
+            {
+                categoryA = adminConsole.CreateCategory();
+                categoryB = adminConsole.CreateCategory();
+            }
 
             var user = MVCForum.RegisterNewUserAndLogin();
             var discussion = user.CreateDiscussion(DiscussionWith.Category(categoryA));
