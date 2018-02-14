@@ -10,7 +10,7 @@ namespace MVCForumAutomation
         {
         }
 
-        public AdminPage GoToAdminPage()
+        public AdminConsole GoToAdminConsole()
         {
             using (Logger.StartSection("Openning Admin page"))
             {
@@ -20,7 +20,7 @@ namespace MVCForumAutomation
                 var adminLink = WebDriver.FindElement(By.CssSelector(".dropdown .auto-admin"));
                 adminLink.Click();
 
-                return new AdminPage(WebDriver);
+                return new AdminConsole(WebDriver);
             }
         }
     }

@@ -67,6 +67,16 @@ namespace MVCForumAutomation
             get { return new LatestDiscussions(_webDriver); }
         }
 
+        public AdminConsole AdminConsole
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public CategoriesList Categories
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public LoggedInAdmin LoginAsAdmin(string adminPassword)
         {
             return LoginAs(_testDefaults.AdminUsername, adminPassword, () => new LoggedInAdmin(_webDriver, _testDefaults));
