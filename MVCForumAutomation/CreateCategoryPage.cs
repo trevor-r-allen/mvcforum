@@ -3,24 +3,23 @@ using OpenQA.Selenium;
 
 namespace MVCForumAutomation
 {
-    internal class CreateCategoryPage
+    internal class CreateCategoryPage : FormPage
     {
-        private readonly IWebDriver _webDriver;
-
         public CreateCategoryPage(IWebDriver webDriver)
+            : base(webDriver)
         {
-            _webDriver = webDriver;
         }
 
         public string CategoryName
         {
             get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            set { FillInputElement("Name", value); }
         }
 
         public void Create()
         {
-            throw new NotImplementedException();
+            var submit = WebDriver.FindElement(By.CssSelector("form input[type=submit]"));
+            submit.Click();
         }
     }
 }
