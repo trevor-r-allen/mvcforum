@@ -120,7 +120,7 @@ namespace MVCForumAutomation
             return _webDriver.TakeScreenshot();
         }
 
-        public string GetAdminPassword()
+        private string GetAdminPassword()
         {
             using (Logger.StartSection("Getting Admin password from 'Read Me' topic"))
             {
