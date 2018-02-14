@@ -41,7 +41,7 @@ namespace MVCForumAutomation
 
         public class DiscussionBuilder
         {
-            private string _body = string.Empty;
+            private string _body = "Lorem ipsum... (empty body is not supported)";
             private Category _category;
             private readonly Dictionary<string, string> _parametersDescriptions = new Dictionary<string, string>();
 
