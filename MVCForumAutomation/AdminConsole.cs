@@ -38,7 +38,7 @@ namespace MVCForumAutomation
 
         public Category CreateCategory()
         {
-            var categoryName = Guid.NewGuid().ToString();
+            var categoryName = UniqueIdentifier.For("Category");
 
             var categoriesPage = OpenCategoriesPage();
             var category = categoriesPage.Create(categoryName);

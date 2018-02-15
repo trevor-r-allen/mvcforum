@@ -74,6 +74,7 @@
     <Compile Include="DiscussionsList.cs" />
     <Compile Include="FormPage.cs" />
     <Compile Include="LatestDiscussions.cs" />
+    <Compile Include="UniqueIdentifier.cs" />
     <Compile Include="VisualLogger.cs" />
     <Compile Include="LoggedInAdmin.cs" />
     <Compile Include="LoginPage.cs" />

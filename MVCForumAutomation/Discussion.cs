@@ -59,7 +59,7 @@ namespace MVCForumAutomation
 
             public void Fill(CreateDiscussionPage createDiscussionPage)
             {
-                UsedTitle = Guid.NewGuid().ToString();
+                UsedTitle = UniqueIdentifier.For("Discussion");
                 createDiscussionPage.Title = UsedTitle;
                 createDiscussionPage.SelectCategory(_category);
                 createDiscussionPage.Body = _body;

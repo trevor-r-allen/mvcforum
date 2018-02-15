@@ -34,9 +34,9 @@ namespace MVCForumAutomation
 
         public LoggedInUser RegisterNewUserAndLogin()
         {
-            var username = Guid.NewGuid().ToString();
+            var username = UniqueIdentifier.For("User");
             const string password = "123456";
-            var email = $"abc@{Guid.NewGuid()}.com";
+            var email = $"abc@{UniqueIdentifier.For("domain")}.com";
 
             var registrationPage = GoToRegistrationPage();
             registrationPage.Username = username;
