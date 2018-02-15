@@ -1,28 +1,24 @@
-using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation
 {
-    public class DiscussionHeader
+    public class DiscussionHeader : DiscussionIdentifier
     {
         private readonly IWebElement _topicRow;
         private readonly IWebDriver _webDriver;
 
         public DiscussionHeader(IWebElement topicRow, IWebDriver webDriver)
+            : base(GetTitle(topicRow))
         {
             _topicRow = topicRow;
             _webDriver = webDriver;
         }
 
-        public string Title
+        private static string GetTitle(IWebElement topicRow)
         {
-            get
-            {
-                var titleElement = _topicRow.FindElement(By.TagName("h3"));
+                var titleElement = topicRow.FindElement(By.TagName("h3"));
                 return titleElement.Text;
-            }
         }
 
         public Discussion OpenDiscussion()
@@ -33,7 +29,7 @@ namespace MVCForumAutomation
                 link.Click();
 
                 var driver = _webDriver;
-                return new Discussion(driver);
+                return new Discussion(driver, Title);
             }
         }
     }

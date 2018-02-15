@@ -70,6 +70,7 @@
     <Compile Include="CreateCategoryPage.cs" />
     <Compile Include="Discussion.cs" />
     <Compile Include="DiscussionHeader.cs" />
+    <Compile Include="DiscussionIdentifier.cs" />
     <Compile Include="DiscussionsList.cs" />
     <Compile Include="FormPage.cs" />
     <Compile Include="LatestDiscussions.cs" />

@@ -6,25 +6,16 @@ using OpenQA.Selenium;
 
 namespace MVCForumAutomation
 {
-    public class Discussion
+    public class Discussion : DiscussionIdentifier
     {
         private readonly IWebElement _container;
 
-        public Discussion(IWebDriver webDriver)
+        public Discussion(IWebDriver webDriver, string title) 
+            : base(title)
         {
             _container = webDriver.TryFindElement(By.ClassName("topicshow"));
             Assert.IsNotNull(_container, "Failed to open discussion");
         }
-
-        public string Title
-        {
-            get
-            {
-                var titleElement = _container.FindElement(By.CssSelector(".topicheading h1"));
-                return titleElement.Text;
-            }
-        }
-
 
         public string Body
         {
@@ -50,6 +41,8 @@ namespace MVCForumAutomation
                 _category = testDefaults.ExampleCategory;
             }
 
+            public string UsedTitle { get; private set; }
+
             public DiscussionBuilder Body(string body)
             {
                 _body = body;
@@ -66,7 +59,8 @@ namespace MVCForumAutomation
 
             public void Fill(CreateDiscussionPage createDiscussionPage)
             {
-                createDiscussionPage.Title = Guid.NewGuid().ToString();
+                UsedTitle = Guid.NewGuid().ToString();
+                createDiscussionPage.Title = UsedTitle;
                 createDiscussionPage.SelectCategory(_category);
                 createDiscussionPage.Body = _body;
             }

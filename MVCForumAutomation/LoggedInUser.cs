@@ -25,7 +25,7 @@ namespace MVCForumAutomation
                 builder.Fill(createDisucssionPage);
                 createDisucssionPage.CreateDiscussion();
 
-                return new Discussion(WebDriver);
+                return new Discussion(WebDriver, builder.UsedTitle);
             }
         }
 
