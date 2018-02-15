@@ -80,7 +80,10 @@ namespace MVCForumAutomation
 
         public CategoriesList Categories
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return new CategoriesList(_webDriver);
+            }
         }
 
         public LoggedInAdmin LoginAsAdmin(string adminPassword)
@@ -126,7 +129,7 @@ namespace MVCForumAutomation
         {
             using (Logger.StartSection("Getting Admin password from 'Read Me' topic"))
             {
-                var readMeHeader = this.LatestDiscussions.Bottom;
+                var readMeHeader = LatestDiscussions.Bottom;
                 var readmeTopic = readMeHeader.OpenDiscussion();
                 var body = readmeTopic.BodyElement;
                 var password = body.FindElement(By.XPath(".//strong[2]"));
