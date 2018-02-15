@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
+using MVCForumAutomation.Entities;
+using MVCForumAutomation.Infrastructure;
+using MVCForumAutomation.PageObjects;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.Tests
 {
     [TestClass]
     public class SanityTests

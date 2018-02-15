@@ -1,4 +1,4 @@
-namespace MVCForumAutomation
+namespace MVCForumAutomation.Infrastructure
 {
     public class ScreenshotEventArgs
     {

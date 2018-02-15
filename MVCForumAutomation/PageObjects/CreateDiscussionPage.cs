@@ -1,7 +1,8 @@
+using MVCForumAutomation.Entities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class CreateDiscussionPage
     {

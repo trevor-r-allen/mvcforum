@@ -1,7 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MVCForumAutomation.Infrastructure;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     internal class LoginPage : FormPage
     {

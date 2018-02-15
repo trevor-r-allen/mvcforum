@@ -1,7 +1,7 @@
 using System.Linq;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class LatestDiscussions : DiscussionsList
     {

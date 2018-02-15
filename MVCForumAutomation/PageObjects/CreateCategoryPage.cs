@@ -1,7 +1,7 @@
 using System;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     internal class CreateCategoryPage : FormPage
     {

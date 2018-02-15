@@ -1,4 +1,4 @@
-﻿namespace MVCForumAutomation
+﻿namespace MVCForumAutomation.Entities
 {
     public enum PermissionTypes
     {

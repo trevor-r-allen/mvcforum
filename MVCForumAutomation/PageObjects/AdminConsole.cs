@@ -1,8 +1,10 @@
 using System;
+using MVCForumAutomation.Entities;
+using MVCForumAutomation.Infrastructure;
 using OpenQA.Selenium;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class AdminConsole : IDisposable
     {

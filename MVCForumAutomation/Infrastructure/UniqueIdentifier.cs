@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.Infrastructure
 {
     public static class UniqueIdentifier
     {

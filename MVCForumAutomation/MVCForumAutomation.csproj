@@ -62,33 +62,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminCategoriesPage.cs" />
-    <Compile Include="AdminConsole.cs" />
-    <Compile Include="CategoriesList.cs" />
-    <Compile Include="Category.cs" />
-    <Compile Include="CategoryView.cs" />
-    <Compile Include="CreateCategoryPage.cs" />
-    <Compile Include="Discussion.cs" />
-    <Compile Include="DiscussionHeader.cs" />
-    <Compile Include="DiscussionIdentifier.cs" />
-    <Compile Include="DiscussionsList.cs" />
-    <Compile Include="FormPage.cs" />
-    <Compile Include="LatestDiscussions.cs" />
-    <Compile Include="UniqueIdentifier.cs" />
-    <Compile Include="VisualLogger.cs" />
-    <Compile Include="LoggedInAdmin.cs" />
-    <Compile Include="LoginPage.cs" />
-    <Compile Include="LoggedInUser.cs" />
-    <Compile Include="MVCForumClient.cs" />
-    <Compile Include="CreateDiscussionPage.cs" />
-    <Compile Include="PermissionTypes.cs" />
+    <Compile Include="PageObjects\AdminCategoriesPage.cs" />
+    <Compile Include="PageObjects\AdminConsole.cs" />
+    <Compile Include="PageObjects\CategoriesList.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="PageObjects\CategoryView.cs" />
+    <Compile Include="PageObjects\CreateCategoryPage.cs" />
+    <Compile Include="PageObjects\Discussion.cs" />
+    <Compile Include="PageObjects\DiscussionHeader.cs" />
+    <Compile Include="Entities\DiscussionIdentifier.cs" />
+    <Compile Include="PageObjects\DiscussionsList.cs" />
+    <Compile Include="PageObjects\FormPage.cs" />
+    <Compile Include="PageObjects\LatestDiscussions.cs" />
+    <Compile Include="Infrastructure\UniqueIdentifier.cs" />
+    <Compile Include="Infrastructure\VisualLogger.cs" />
+    <Compile Include="PageObjects\LoggedInAdmin.cs" />
+    <Compile Include="PageObjects\LoggedInUser.cs" />
+    <Compile Include="PageObjects\LoginPage.cs" />
+    <Compile Include="PageObjects\MVCForumClient.cs" />
+    <Compile Include="PageObjects\CreateDiscussionPage.cs" />
+    <Compile Include="Entities\PermissionTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationPage.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="RolePermissionsPage.cs" />
-    <Compile Include="SanityTests.cs" />
-    <Compile Include="ScreenshotEventArgs.cs" />
-    <Compile Include="SeleniumExtensions.cs" />
+    <Compile Include="PageObjects\RegistrationPage.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="PageObjects\RolePermissionsPage.cs" />
+    <Compile Include="Tests\SanityTests.cs" />
+    <Compile Include="Infrastructure\ScreenshotEventArgs.cs" />
+    <Compile Include="Infrastructure\SeleniumExtensions.cs" />
     <Compile Include="TestDefaults.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +96,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,6 +1,7 @@
+using MVCForumAutomation.Entities;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     internal class AdminCategoriesPage
     {

@@ -1,6 +1,6 @@
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     internal class RegistrationPage : FormPage
     {

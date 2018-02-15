@@ -12,7 +12,7 @@ using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.Infrastructure
 {
     internal class VisualLogger : ICustomLogger
     {

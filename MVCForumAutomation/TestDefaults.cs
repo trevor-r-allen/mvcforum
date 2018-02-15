@@ -1,4 +1,6 @@
-﻿namespace MVCForumAutomation
+﻿using MVCForumAutomation.Entities;
+
+namespace MVCForumAutomation
 {
     public class TestDefaults
     {

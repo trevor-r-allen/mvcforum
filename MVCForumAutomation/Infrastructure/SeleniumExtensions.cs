@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.Infrastructure
 {
     public static class SeleniumExtensions
     {

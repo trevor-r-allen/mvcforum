@@ -1,9 +1,11 @@
 using System.Linq;
+using MVCForumAutomation.Entities;
+using MVCForumAutomation.Infrastructure;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class RolePermissionsPage
     {

@@ -1,12 +1,13 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MVCForumAutomation.Infrastructure;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class MVCForumClient : ITakesScreenshot
     {

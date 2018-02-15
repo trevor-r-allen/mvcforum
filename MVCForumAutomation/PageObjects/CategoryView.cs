@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class CategoryView : DiscussionsList
     {

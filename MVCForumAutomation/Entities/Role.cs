@@ -1,8 +1,8 @@
-namespace MVCForumAutomation
+﻿namespace MVCForumAutomation.Entities
 {
-    public class Category
+    public class Role
     {
-        public Category(string name)
+        public Role(string name)
         {
             Name = name;
         }

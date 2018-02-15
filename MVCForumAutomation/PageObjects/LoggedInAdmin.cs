@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using TestAutomationEssentials.Common;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class LoggedInAdmin : LoggedInUser
     {

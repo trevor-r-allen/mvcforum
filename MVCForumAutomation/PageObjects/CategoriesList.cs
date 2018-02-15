@@ -1,8 +1,9 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MVCForumAutomation.Entities;
 using OpenQA.Selenium;
 
-namespace MVCForumAutomation
+namespace MVCForumAutomation.PageObjects
 {
     public class CategoriesList
     {
