@@ -6,10 +6,12 @@ namespace MVCForumAutomation
 {
     public class CategoriesList
     {
+        private readonly IWebDriver _webDriver;
         private readonly IWebElement _categoriesList;
 
         public CategoriesList(IWebDriver webDriver)
         {
+            _webDriver = webDriver;
             _categoriesList = webDriver.FindElement(By.ClassName("categories-box"));
         }
 
@@ -21,7 +23,7 @@ namespace MVCForumAutomation
 
             linkToSelect.Click();
 
-            return new CategoryView();
+            return new CategoryView(_webDriver);
         }
     }
 }
