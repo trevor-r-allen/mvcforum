@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 
@@ -11,31 +11,23 @@ namespace MVCForumAutomation
         public LatestDiscussions(IWebDriver webDriver)
         {
             _webDriver = webDriver;
+            Activate();
         }
 
         public DiscussionHeader Top
         {
-            get
-            {
-                var topicRows = GetAllTopicRows();
-                return new DiscussionHeader(topicRows.First(), _webDriver);
-            }
+            get { return GetAllDiscussionHeaders().First(); }
         }
 
         public DiscussionHeader Bottom
         {
-            get
-            {
-                var topicRows = GetAllTopicRows();
-                return new DiscussionHeader(topicRows.Last(), _webDriver);
-            }
+            get { return GetAllDiscussionHeaders().Last(); }
         }
 
-        private ReadOnlyCollection<IWebElement> GetAllTopicRows()
+        private IReadOnlyCollection<DiscussionHeader> GetAllDiscussionHeaders()
         {
-            Activate();
             var topicRows = _webDriver.FindElements(By.ClassName("topicrow"));
-            return topicRows;
+            return topicRows.Select(row => new DiscussionHeader(row, _webDriver)).ToList();
         }
 
         private void Activate()
