@@ -2,58 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCForumAutomation.Entities;
 using MVCForumAutomation.Infrastructure;
-using MVCForumAutomation.PageObjects;
-using TestAutomationEssentials.Common;
 
 namespace MVCForumAutomation.Tests
 {
     [TestClass]
-    public class SanityTests
+    public class SanityTests : MVCForumTestBase
     {
-        public SanityTests()
-        {
-            TestDefaults = new TestDefaults();
-            MVCForum = new MVCForumClient(TestDefaults);
-        }
-
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext context)
-        {
-            const string reportPath = "Report.html";
-            VisualLogger.Initialize(reportPath);
-            context.AddResultFile(reportPath);
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            VisualLogger.StartTest(TestContext.TestName);
-
-            AddCreateTopicPermissionToStandardMembers();
-
-            Logger.WriteLine("*** Test Initialize Completed ***");
-        }
-
-        private void AddCreateTopicPermissionToStandardMembers()
-        {
-            using (Logger.StartSection("Adding 'Create Topic' permission to Standard members"))
-            {
-                using (var adminConsole = MVCForum.OpenAdminConsole())
-                {
-                    var permissions = adminConsole.GetPermissionsFor(TestDefaults.StandardMembers);
-                    permissions.AddToCategory(TestDefaults.ExampleCategory, PermissionTypes.CreateTopics);
-                }
-            }
-        }
-
-        public TestContext TestContext { get; set; }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            VisualLogger.ReportOutcome(TestContext, MVCForum);
-        }
-
         [TestMethod]
         public void WhenARegisteredUserStartsADiscussionOtherAnonymousUsersCanSeeIt()
         {
@@ -90,19 +44,5 @@ namespace MVCForumAutomation.Tests
             categoryView = MVCForum.Categories.Select(categoryB);
             Assert.AreEqual(0, categoryView.Discussions.Count, $"No discussions expected in categoryB ({categoryB.Name}");
         }
-
-        public Discussion.DiscussionBuilder DiscussionWith
-        {
-            get { return new Discussion.DiscussionBuilder(TestDefaults); }
-        }
-
-        private MVCForumClient OpenNewMVCForumClient()
-        {
-            return new MVCForumClient(TestDefaults);
-        }
-
-        public TestDefaults TestDefaults { get; }
-
-        public MVCForumClient MVCForum { get; }
     }
 }

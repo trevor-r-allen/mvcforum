@@ -86,6 +86,7 @@
     <Compile Include="PageObjects\RegistrationPage.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="PageObjects\RolePermissionsPage.cs" />
+    <Compile Include="Infrastructure\MVCForumTestBase.cs" />
     <Compile Include="Tests\SanityTests.cs" />
     <Compile Include="Infrastructure\ScreenshotEventArgs.cs" />
     <Compile Include="Infrastructure\SeleniumExtensions.cs" />
