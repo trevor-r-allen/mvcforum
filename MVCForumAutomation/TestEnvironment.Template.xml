@@ -2,4 +2,8 @@
 <TestEnvironment xmlns="http://TestAutomation.MVCForum.com/TestEnvironment.xsd">
   <!--Uncomment the following line and specify the URL of your MVCForum website-->
   <!--<URL>http://localhost:8080/</URL>-->
+
+  <!--Uncomment the following line and specify the browser type to use for the test-->
+  <!--<BrowserType>Chrome</BrowserType>-->
+  
 </TestEnvironment>

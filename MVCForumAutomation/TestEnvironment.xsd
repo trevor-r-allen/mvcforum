@@ -14,6 +14,22 @@
             <xs:documentation>Specify the URL of the MVCForum site to use for the tests</xs:documentation>
           </xs:annotation>
         </xs:element>
+
+        <xs:element name="BrowserType" default="Chrome">
+          <xs:annotation>
+            <xs:documentation>
+              Specify the browser type to use. Supported values are Chrome, Firefox and Edge
+            </xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Chrome" />
+              <xs:enumeration value="Edge" />
+              <xs:enumeration value="Firefox" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
       </xs:sequence>
     </xs:complexType>
   </xs:element>

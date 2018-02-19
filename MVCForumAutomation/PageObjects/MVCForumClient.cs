@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCForumAutomation.Infrastructure;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.Extensions;
 using TestAutomationEssentials.Common;
@@ -21,11 +23,29 @@ namespace MVCForumAutomation.PageObjects
 
             _testDefaults = testDefaults;
             // TODO: select the type of browser and the URL from a configuration file
-            var parentDriver = new ChromeDriver();
+            var parentDriver = CreateDriver(environment);
             var eventFiringDriver = new EventFiringWebDriver(parentDriver);
             VisualLogger.RegisterWebDriverEvents(eventFiringDriver);
             _webDriver = eventFiringDriver;
             _webDriver.Url = environment.URL;
+        }
+
+        private static IWebDriver CreateDriver(TestEnvironment environment)
+        {
+            switch (environment.BrowserType)
+            {
+                case TestEnvironment.BrowserTypes.Edge:
+                    return new EdgeDriver();
+
+                case TestEnvironment.BrowserTypes.Firefox:
+                    return new FirefoxDriver();
+
+                case TestEnvironment.BrowserTypes.Chrome:
+                    return new ChromeDriver();
+
+                default:
+                    throw new NotSupportedException($"Browser {environment.BrowserType} is not supported");
+            }
         }
 
         ~MVCForumClient()
