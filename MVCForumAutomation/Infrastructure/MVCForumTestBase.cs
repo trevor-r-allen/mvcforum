@@ -1,17 +1,21 @@
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MVCForumAutomation.Entities;
 using MVCForumAutomation.PageObjects;
 using TestAutomationEssentials.Common;
+using TestAutomationEssentials.Common.Configuration;
 
 namespace MVCForumAutomation.Infrastructure
 {
     [TestClass]
     public class MVCForumTestBase
     {
+        private static TestEnvironment s_environment;
+
         public MVCForumTestBase()
         {
             TestDefaults = new TestDefaults();
-            MVCForum = new MVCForumClient(TestDefaults);
+            MVCForum = new MVCForumClient(TestDefaults, s_environment);
         }
 
         public TestContext TestContext { get; set; }
@@ -30,6 +34,20 @@ namespace MVCForumAutomation.Infrastructure
             const string reportPath = "Report.html";
             VisualLogger.Initialize(reportPath);
             context.AddResultFile(reportPath);
+
+            LoadTestEnvironment();
+        }
+
+        private static void LoadTestEnvironment()
+        {
+            const string filename = "TestEnvironment.xml";
+            if (!File.Exists(filename))
+                Assert.Fail("Configuration file TestEnvironment.xml not found. " 
+                    + "In order to create one, copy the file TestEnvironment.Template.xml " 
+                    + "from the project folder to TestEnvironment.xml (in the same folder), " 
+                    + "edit it according to the contained instructions and rebuild the project");
+
+            s_environment = TestConfig.Load<TestEnvironment>(filename);
         }
 
         [TestInitialize]
@@ -62,7 +80,7 @@ namespace MVCForumAutomation.Infrastructure
 
         protected MVCForumClient OpenNewMVCForumClient()
         {
-            return new MVCForumClient(TestDefaults);
+            return new MVCForumClient(TestDefaults, s_environment);
         }
     }
 }

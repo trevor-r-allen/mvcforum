@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestEnvironment xmlns="http://TestAutomation.MVCForum.com/TestEnvironment.xsd">
+  <!--Uncomment the following line and specify the URL of your MVCForum website-->
+  <!--<URL>http://localhost:8080/</URL>-->
+</TestEnvironment>

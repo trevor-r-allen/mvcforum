@@ -15,7 +15,7 @@ namespace MVCForumAutomation.PageObjects
         private readonly IWebDriver _webDriver;
         private readonly Lazy<string> _adminPassword;
 
-        public MVCForumClient(TestDefaults testDefaults)
+        public MVCForumClient(TestDefaults testDefaults, TestEnvironment environment)
         {
             _adminPassword = new Lazy<string>(GetAdminPassword);
 
@@ -25,7 +25,7 @@ namespace MVCForumAutomation.PageObjects
             var eventFiringDriver = new EventFiringWebDriver(parentDriver);
             VisualLogger.RegisterWebDriverEvents(eventFiringDriver);
             _webDriver = eventFiringDriver;
-            _webDriver.Url = "http://localhost:8080";
+            _webDriver.Url = environment.URL;
         }
 
         ~MVCForumClient()

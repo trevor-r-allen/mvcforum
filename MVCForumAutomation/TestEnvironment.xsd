@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestEnvironment"
+    targetNamespace="http://TestAutomation.MVCForum.com/TestEnvironment.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://TestAutomation.MVCForum.com/TestEnvironment.xsd"
+    xmlns:mstns="http://TestAutomation.MVCForum.com/TestEnvironment.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="TestEnvironment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="URL" type="xs:string" minOccurs="0" maxOccurs="1" default="http://localhost:8080/">
+          <xs:annotation>
+            <xs:documentation>Specify the URL of the MVCForum site to use for the tests</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
