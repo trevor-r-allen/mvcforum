@@ -21,7 +21,7 @@ namespace MVCForumAutomation.PageObjects
 
         public RolePermissionsPage GetPermissionsFor(Role role)
         {
-            using (Logger.StartSection($"Openning permissions for '{role.Name}'"))
+            using (Logger.StartSection($"Opening permissions for '{role.Name}'"))
             {
                 var sideNavBar = _webDriver.FindElement(By.ClassName("side-nav"));
                 var permissionsMenu = sideNavBar.FindElement(By.XPath("//a[@data-target='#permissions']"));

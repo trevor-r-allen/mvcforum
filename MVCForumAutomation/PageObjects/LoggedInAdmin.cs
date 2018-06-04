@@ -12,7 +12,7 @@ namespace MVCForumAutomation.PageObjects
 
         public AdminConsole GoToAdminConsole()
         {
-            using (Logger.StartSection("Openning Admin page"))
+            using (Logger.StartSection("Opening Admin page"))
             {
                 var myToolsMenu = WebDriver.FindElement(By.ClassName("mytoolslink"));
                 myToolsMenu.Click();
