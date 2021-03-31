@@ -4,17 +4,16 @@ using System;
 namespace MVCForumAutomation
 {
     [TestClass]
-    public class SanityTests
+    public partial class SanityTests
     {
-
         /*
-Login as a registered user
-Start a discussion titled "Hi!" and body "dummy body"
-Enter the site as an anonymous user (from another browser)
-Verify that a discussion titled "Hi!" appears
-Open that discussion
-Verify that the body of the discussion is "dummy body"
-*/
+        Login as a registered user
+        Start a discussion titled "Hi!" and body "dummy body"
+        Enter the site as an anonymous user (from another browser)
+        Verify that a discussion titled "Hi!" appears
+        Open that discussion
+        Verify that the body of the discussion is "dummy body"
+        */
         [TestMethod]
         public void WhenARegisteredUserStartsADiscussionOtherAnonymousUsersCanSeeIt()
         {
@@ -33,76 +32,6 @@ Verify that the body of the discussion is "dummy body"
         {
             get { throw new NotImplementedException(); }
         }
-
-        public class DiscussionHeader
-        {
-            public string Title 
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public Discussion OpenDiscussion()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public class Discussion
-        {
-            public static DiscussionBuilder With
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public string Title
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public string Body
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public class DiscussionBuilder
-            {
-                public DiscussionBuilder Body(string body)
-                {
-                    throw new NotImplementedException();
-                }
-            }
-        }
-
-        public class MVCForumClient
-        {
-
-            public LoggedInUser RegisterNewUserAndLogin()
-            {
-                throw new NotImplementedException();
-            }
-
-            public LatestDiscussions LatestDiscussions
-            {
-                get { throw new NotImplementedException(); }
-            }
-        }
-        public class LatestDiscussions
-        {
-            public DiscussionHeader Top
-            {
-                get { throw new NotImplementedException(); }
-            }
-        }
-
-        public class LoggedInUser
-        {
-            public Discussion CreateDiscussion(Discussion.DiscussionBuilder builder)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-
     }
 
 }
