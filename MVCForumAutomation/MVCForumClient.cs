@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
 using System;
 
 namespace MVCForumAutomation
@@ -25,15 +26,22 @@ namespace MVCForumAutomation
                 const string email = "abc@def.com";
 
                 var registrationPage = GoToRegistrationPage();
-                registrationPage.UserName = username;
+                registrationPage.Username = username;
                 registrationPage.Password = password;
                 registrationPage.ConfirmPassword = password;
                 registrationPage.Email = email;
 
                 registrationPage.Register();
 
-                return new LoggedInUserInUser();
+                return new LoggedInUser();
 
+            }
+
+            private RegistrationPage GoToRegistrationPage()
+            {
+                var registerLink = _webDriver.FindElement(By.ClassName("auto-register"));
+                registerLink.Click();
+                return new RegistrationPage(_webDriver);
             }
 
             public LatestDiscussions LatestDiscussions
