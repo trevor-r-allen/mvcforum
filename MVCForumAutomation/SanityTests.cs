@@ -28,10 +28,7 @@ namespace MVCForumAutomation
             Assert.AreEqual(body, viewedDiscussion.Body, "The body of the latest discussion should match the one we created");
         }
 
-        public MVCForumClient MVCForum
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public MVCForumClient MVCForum { get; } = new MVCForumClient();
     }
 
 }
